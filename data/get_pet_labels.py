@@ -17,6 +17,7 @@
 #
 ##
 # Imports python modules
+import os
 from os import listdir
 
 # TODO 2: Define get_pet_labels function below please be certain to replace None
@@ -40,33 +41,24 @@ def get_pet_labels(image_dir):
       List. The list contains for following item:
          index 0 = pet image label (string)
     """
-    # Replace None with the results_dic dictionary that you created with this
-    # function
-    # Creates list of files in directory
-    filename_list = os.listdir(image_dir)
-    
-    # Creates empty dictionary for the pet labels
+    in_files = os.listdir(image_dir)
     results_dic = dict()
-    
-    # Processes through each file in the directory
-    for filename in filename_list:
-        # Skips file if starts with . (hidden files like .DS_Store)
-        if filename[0] != ".":
-            # Converts string to lower case and splits by underscore
-            word_list_pet_image = filename.lower().split("_")
+
+    for filename in in_files:
+        # Skip hidden files like .DS_Store
+        if not filename.startswith('.'):
+            # Split filename by '_' to extract word components
+            word_list = filename.lower().split('_')
             
-            # Create pet_label starting as empty string
+            # Join only alphabetic words to form the label
             pet_label = ""
-            
-            # Loop to check if word is alphabetic and format label
-            for word in word_list_pet_image:
+            for word in word_list:
                 if word.isalpha():
                     pet_label += word + " "
-                    
-            # Strip trailing whitespace
-            pet_label = pet_label.strip()
             
-            # Add to dictionary if key doesn't exist, else print warning
+            pet_label = pet_label.strip()
+
+            # Add to results_dic if key doesn't already exist
             if filename not in results_dic:
                 results_dic[filename] = [pet_label]
             else:

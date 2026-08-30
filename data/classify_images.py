@@ -21,6 +21,7 @@
 #
 ##
 # Imports classifier function for using CNN to classify images 
+import os
 from classifier import classifier 
 
 # TODO 3: Define classify_images function below, specifically replace the None
